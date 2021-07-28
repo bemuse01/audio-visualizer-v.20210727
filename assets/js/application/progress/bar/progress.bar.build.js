@@ -19,6 +19,7 @@ export default class{
 
     // animate
     animate({duration, currentTime}){
+        if(duration === 0) return
         const width = (currentTime / duration) * 100
         this.style.width = `${width}%`
     }
