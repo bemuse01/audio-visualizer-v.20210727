@@ -22,6 +22,8 @@ export default {
         const ys = sample
         ys[~~(len * start * smooth)] = 0
         ys[~~(len * start * smooth) + 1] = 0
+        // ys[~~(len * start * smooth) + 2] = 0
+        // ys[~~((len * start + len - 1) * smooth) - 1] = 0
         ys[~~((len * start + len - 1) * smooth)] = 0
         ys[~~((len * start + len - 1) * smooth) + 1] = 0
         const spline = new Spline(xs, ys)
