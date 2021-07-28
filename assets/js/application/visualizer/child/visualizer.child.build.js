@@ -18,7 +18,7 @@ export default class{
         this.param = {
             count: 4,
             display: 100,
-            width: 800,
+            width: 1000,
             height: 1,
             fps: 60,
             step: 12,
