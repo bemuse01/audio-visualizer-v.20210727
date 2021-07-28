@@ -68,7 +68,8 @@ export default class{
                 uColor: {value: new THREE.Color(this.param.color)},
                 uMaxDist: {value: this.param.width / 2},
                 uBoundary: {value: this.param.boundary},
-                uOpacity: {value: this.param.opacity}
+                uOpacity: {value: this.param.opacity},
+                uMaxAudioData: {value: 0},
             },
             depthTest: true
         })
@@ -87,6 +88,7 @@ export default class{
 
         this.local.children.forEach((mesh, idx) => {
             const buffer = METHOD.createAudioBuffer({sample, smooth, index: this.index, start: idx})
+            mesh.material.uniforms['uMaxAudioData'].value = Math.max(...buffer)
 
             const position = mesh.geometry.attributes.position
             const {array, count} = position
