@@ -23,7 +23,6 @@ export default class{
             height: 2,
             fps: 60,
             step: 12,
-            color: 0xffffff,
             // smooth: 0.14,
             smooth: 0.1,
             boundary: 0.75,
@@ -67,7 +66,6 @@ export default class{
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
             uniforms: {
-                // uColor: {value: new THREE.Color(this.param.color)},
                 uColor: {value: new THREE.Color(`hsl(${this.param.color[idx]}, 100%, 70%)`)},
                 uMaxDist: {value: this.size.obj.w * this.param.width / 2},
                 uBoundary: {value: this.param.boundary},
