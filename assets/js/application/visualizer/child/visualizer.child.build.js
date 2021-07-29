@@ -4,21 +4,22 @@ import METHOD from './visualizer.child.method.js'
 import SHADER from './visualizer.child.shader.js'
 
 export default class{
-    constructor({group}){
-        this.init()
+    constructor({group, size}){
+        this.init(size)
         this.create()
         this.add(group)
     }
 
 
     // init
-    init(){
+    init(size){
+        this.size = size
         this.play = true
 
         this.param = {
             count: 3,
             display: 100,
-            width: 1000,
+            width: 0.95,
             height: 1,
             fps: 60,
             step: 12,
@@ -56,7 +57,7 @@ export default class{
         return new THREE.Mesh(geometry, material)
     }
     createGeometry(){
-        const geometry = new THREE.PlaneGeometry(this.param.width, this.param.height, this.param.display - 1)
+        const geometry = new THREE.PlaneGeometry(this.size.obj.w * this.param.width, this.param.height, this.param.display - 1)
 
         return geometry
     }
@@ -68,7 +69,7 @@ export default class{
             uniforms: {
                 // uColor: {value: new THREE.Color(this.param.color)},
                 uColor: {value: new THREE.Color(`hsl(${this.param.color[idx]}, 100%, 70%)`)},
-                uMaxDist: {value: this.param.width / 2},
+                uMaxDist: {value: this.size.obj.w * this.param.width / 2},
                 uBoundary: {value: this.param.boundary},
                 uOpacity: {value: this.param.opacity},
                 uMaxAudioData: {value: 0},
@@ -76,6 +77,19 @@ export default class{
             },
             depthTest: false,
             blending: THREE.AdditiveBlending
+        })
+    }
+
+
+    // resize
+    resize(size){
+        this.size = size
+
+        this.local.children.forEach(mesh => {
+            mesh.geometry.dispose()
+
+            mesh.geometry = this.createGeometry()
+            mesh.material.uniforms['uMaxDist'].value = this.size.obj.w * this.param.width / 2
         })
     }
 
