@@ -29,8 +29,6 @@ export default class{
         this.audio.loop = true
         this.audio.src = this.src
         this.audio.volume = 0.75
-
-        this.updateAudioCurrentTime()
     }
     createContext(){
         if(this.start){
@@ -74,6 +72,7 @@ export default class{
             this.context.resume()
             this.duration = this.audio.duration
             this.start = false
+            this.updateAudioCurrentTime()
         }
     }
 }
