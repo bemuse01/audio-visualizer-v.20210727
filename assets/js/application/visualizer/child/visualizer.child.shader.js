@@ -1,4 +1,4 @@
-import SHADER from '../../../method/method.shader.js'
+import SHADER_METHOD from '../../../method/method.shader.js'
 
 export default {
     draw: {
@@ -23,11 +23,11 @@ export default {
             varying vec3 vPosition;
             varying vec2 vUv;
 
-            ${SHADER.executeNormalizing()}
+            ${SHADER_METHOD.executeNormalizing()}
 
             void main(){
                 float dist = 0.0;
-                float opacity = executeNormalizing(distance(abs(vPosition.y), 1.0), 0.3, 0.5, 0.0, uMaxAudioData + 10.0);
+                float opacity = executeNormalizing(distance(abs(vPosition.y), 1.0), 0.65, 0.85, 0.0, uMaxAudioData + 10.0);
 
                 if(abs(vPosition.x) > uMaxDist * uBoundary){
                     dist = distance(vPosition.x, uMaxDist * uBoundary * sign(vPosition.x)) / (uMaxDist - uMaxDist * uBoundary);

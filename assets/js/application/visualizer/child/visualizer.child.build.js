@@ -16,7 +16,7 @@ export default class{
         this.play = true
 
         this.param = {
-            count: 4,
+            count: 3,
             display: 100,
             width: 1000,
             height: 1,
@@ -26,7 +26,8 @@ export default class{
             // smooth: 0.14,
             smooth: 0.1,
             boundary: 0.75,
-            opacity: 0.65
+            opacity: 0.65,
+            color: [130, 220, 360]
         }
 
         this.index = Array.from({length: this.param.display}, (e, i) => i)
@@ -50,8 +51,8 @@ export default class{
         }
     }
     createMesh(idx){
-        const geometry = this.createGeometry(idx)
-        const material = this.createMaterial()
+        const geometry = this.createGeometry()
+        const material = this.createMaterial(idx)
         return new THREE.Mesh(geometry, material)
     }
     createGeometry(){
@@ -59,19 +60,22 @@ export default class{
 
         return geometry
     }
-    createMaterial(){
+    createMaterial(idx){
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.draw.vertex,
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
             uniforms: {
-                uColor: {value: new THREE.Color(this.param.color)},
+                // uColor: {value: new THREE.Color(this.param.color)},
+                uColor: {value: new THREE.Color(`hsl(${this.param.color[idx]}, 100%, 70%)`)},
                 uMaxDist: {value: this.param.width / 2},
                 uBoundary: {value: this.param.boundary},
                 uOpacity: {value: this.param.opacity},
                 uMaxAudioData: {value: 0},
+                uAvg: {value: 0}
             },
-            depthTest: true
+            depthTest: false,
+            blending: THREE.AdditiveBlending
         })
     }
 
