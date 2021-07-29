@@ -17,8 +17,10 @@ export default {
             uniform vec3 uColor;
             uniform float uMaxDist;
             uniform float uBoundary;
-            uniform float uOpacity;
+            uniform float uOpacityMin;
+            uniform float uOpacityMax;
             uniform float uMaxAudioData;
+            uniform float uHeight;
 
             varying vec3 vPosition;
             varying vec2 vUv;
@@ -27,7 +29,7 @@ export default {
 
             void main(){
                 float dist = 0.0;
-                float opacity = executeNormalizing(distance(abs(vPosition.y), 1.0), 0.65, 0.85, 0.0, uMaxAudioData + 10.0);
+                float opacity = executeNormalizing(distance(abs(vPosition.y), uHeight), uOpacityMin, uOpacityMax, 0.0, uMaxAudioData + 10.0);
 
                 if(abs(vPosition.x) > uMaxDist * uBoundary){
                     dist = distance(vPosition.x, uMaxDist * uBoundary * sign(vPosition.x)) / (uMaxDist - uMaxDist * uBoundary);
@@ -37,9 +39,6 @@ export default {
 
                 // ver 1.
                 // float opacity = executeNormalizing(distance(vUv.y, 0.5), 0.3, 0.5, 0.0, 0.5);
-
-                // ver 2.
-                // float opacity = executeNormalizing(distance(abs(vPosition.y), 1.0), 0.3, 0.5, 0.0, uMaxAudioData);
             }
         `
     },

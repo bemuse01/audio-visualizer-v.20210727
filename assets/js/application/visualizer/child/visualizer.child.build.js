@@ -20,14 +20,14 @@ export default class{
             count: 3,
             display: 100,
             width: 0.95,
-            height: 1,
+            height: 2,
             fps: 60,
             step: 12,
             color: 0xffffff,
             // smooth: 0.14,
             smooth: 0.1,
             boundary: 0.75,
-            opacity: 0.65,
+            opacity: {min: 0.6, max: 0.85},
             color: [130, 220, 360]
         }
 
@@ -71,8 +71,10 @@ export default class{
                 uColor: {value: new THREE.Color(`hsl(${this.param.color[idx]}, 100%, 70%)`)},
                 uMaxDist: {value: this.size.obj.w * this.param.width / 2},
                 uBoundary: {value: this.param.boundary},
-                uOpacity: {value: this.param.opacity},
+                uOpacityMin: {value: this.param.opacity.min},
+                uOpacityMax: {value: this.param.opacity.max},
                 uMaxAudioData: {value: 0},
+                uHeight: {value: this.param.height},
                 uAvg: {value: 0}
             },
             depthTest: false,
