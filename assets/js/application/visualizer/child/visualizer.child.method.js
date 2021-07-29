@@ -14,7 +14,7 @@ export default {
 
         return temp
     },
-    createAudioBuffer({sample, index, smooth, start}){
+    createAudioBuffer({sample, index, smooth, start, boost}){
         const len = sample.length 
         let temp = []
 
@@ -29,7 +29,7 @@ export default {
         const spline = new Spline(xs, ys)
         
         for(let i = len * start; i < len * start + len; i++){
-            temp.push(spline.at(i * smooth))
+            temp.push(spline.at(i * smooth) * boost)
         }
 
         const avg = temp.reduce((x, y) => x + y) / len

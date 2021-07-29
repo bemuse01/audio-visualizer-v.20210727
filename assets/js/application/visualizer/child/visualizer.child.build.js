@@ -27,7 +27,8 @@ export default class{
             smooth: 0.1,
             boundary: 0.75,
             opacity: {min: 0.6, max: 0.85},
-            color: [130, 220, 360]
+            color: [130, 220, 360],
+            boost: 1.2,
         }
 
         this.index = Array.from({length: this.param.display}, (e, i) => i)
@@ -98,14 +99,14 @@ export default class{
     animate({audioData, context}){
         if(!context) return
 
-        const {fps, display, step, smooth, height} = this.param
+        const {fps, display, step, smooth, height, boost} = this.param
 
         const startOffset = Math.floor(1 / fps * context.sampleRate)
         const offset = audioData.slice(startOffset)
         const sample = METHOD.createStepAudioBuffer({offset, display, step})
 
         this.local.children.forEach((mesh, idx) => {
-            const buffer = METHOD.createAudioBuffer({sample, smooth, index: this.index, start: idx})
+            const buffer = METHOD.createAudioBuffer({sample, smooth, boost, index: this.index, start: idx})
             mesh.material.uniforms['uMaxAudioData'].value = Math.max(...buffer)
 
             const position = mesh.geometry.attributes.position
