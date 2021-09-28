@@ -12,7 +12,7 @@ export default class{
 
     // init 
     init(){
-        this.src = 'assets/src/LiSA - Unlasting.mp3'
+        this.src = 'assets/src/竜とそばかすの姫 - 心のそばに.mp3'
         this.start = true
         this.sample = null
         this.duration = 0
@@ -28,7 +28,7 @@ export default class{
         this.audio = new Audio()
         this.audio.loop = true
         this.audio.src = this.src
-        this.audio.volume = 0.75
+        this.audio.volume = 1.0
     }
     createContext(){
         if(this.start){
